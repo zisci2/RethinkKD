@@ -265,7 +265,7 @@ class LT_Dataset(Dataset):
             img_weak = self.transform[0](sample)
             img_strong = self.transform[1](sample)
             img_base = self.transform[2](sample)
-        if self.transform is not None and len(self.transform) == 2: # 测试集
+        if self.transform is not None and len(self.transform) == 2: 
             # img_base = self.transform[0](sample)
             img_weak = self.transform[0](sample)
             # img_weak = 1
@@ -277,7 +277,6 @@ class LT_Dataset(Dataset):
 
 
 def Load_CIFAR100(data_root, dataset, phase, batch_size, num_workers=4, shuffle=True):
-    # 在这里只要考虑CIFAR100加载 长尾 / 平衡 数据集
     txt = None
     if dataset == 'CIFAR100_imb100':
         if phase == 'train':

@@ -18,13 +18,10 @@ import torch.nn.functional as F
 from DataLoaderCIFAR import Load_CIFAR100
 from DataLoaderImageNet import Load_ImageNet
 
-# 主要计算T与S的IoU ———— 2024.01.01 好快啊2023就不再成为log的记录的符号了
-
-
 
 data_root = {
         # 'CIFAR100': r'E:/cifar-100-python/clean_img',
-        'CIFAR100': r'/mnt/d/data/cifar-100-python/clean_img',
+        'CIFAR100': '/mnt/d/data/cifar-100-python/clean_img',
         'CIFAR10': '/mnt/d/data/cifar-10-batches-py/clean_img',
         # 'ImageNet':'E:\ImageNet2012',
         'ImageNet':'/mnt/e/dataset/ImageNet/data/ImageNet2012',
@@ -78,7 +75,7 @@ model_path = {
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-parser = argparse.ArgumentParser(description="计算两模型的激活图的IoU")
+parser = argparse.ArgumentParser(description="Calculate the Intersection over Union (IoU) of activation maps between the two models.")
 parser.add_argument("--m1_path",default="",#"run-teacher/CIFAR100_train_61_get-teacher-weak/checkpoint_bestAcc1.pth.tar",
                     help="模型1的加载路径。")
 parser.add_argument("--m1_is_teacher",default=True,action='store_true',

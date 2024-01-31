@@ -18,7 +18,6 @@ import torch.nn.functional as F
 from DataLoaderCIFAR import Load_CIFAR100
 from DataLoaderImageNet import Load_ImageNet
 
-# 主要计算T与S的IoU ———— 2024.01.01 好快啊2023就不再成为log的记录的符号了
 
 
 
