@@ -20,18 +20,18 @@ from torchvision import datasets, models
 from torchvision import transforms as T
 
 from trainer import train_model,get_logfile_name,print_write
-from DataLoaderCIFAR import Load_CIFAR100
-from DataLoaderImageNet import Load_ImageNet
+from data_loader.DataLoaderCIFAR import Load_CIFAR100
+from data_loader.DataLoaderImageNet import Load_ImageNet
 
 
 resnets = ['resnet18', 'resnet34', 'resnet50']
 students = ['resnet18', 'resnet34']
 modes = ['train', 'distil'] 
 data_root = {
-        # 'CIFAR100':  '/mnt/d/data/cifar-100-python/clean_img',
-        # 'ImageNet':'/mnt/e/dataset/ImageNet/data/ImageNet2012',
-        'CIFAR100': 'H:\Dataset\cifar100\clean_img',
-        'ImageNet': 'H:\Dataset\ImageNet',
+        'CIFAR100':  '/mnt/d/data/cifar-100-python/clean_img',
+        'ImageNet':'/mnt/e/dataset/ImageNet/data/ImageNet2012',
+        # 'CIFAR100': 'H:\Dataset\cifar100\clean_img',
+        # 'ImageNet': 'H:\Dataset\ImageNet',
         }
 teacher_path = {
     "weak" : "run-teacher/CIFAR100_train_61_get-teacher-weak/checkpoint_bestAcc1.pth.tar",

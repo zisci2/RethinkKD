@@ -14,9 +14,10 @@ from torchvision import datasets, models
 from torchvision import transforms as T
 
 # from trainer_diversity_affinity import train_model,get_logfile_name,print_write
-
-from DataLoaderCIFAR_diversity_affinity import Load_CIFAR100
-from DataLoaderImageNet_diversity_affinity import Load_ImageNet
+import sys
+sys.path.append("data_loader")
+from DataLoaderCIFAR_affinity import Load_CIFAR100
+from DataLoaderImageNet_affinity import Load_ImageNet
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""

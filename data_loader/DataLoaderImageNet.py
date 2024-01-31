@@ -558,7 +558,7 @@ class LT_Dataset(Dataset):
             # img_base = self.transform[0](sample)
             img_weak = self.transform[0](sample)
             img_strong = self.transform[1](sample)
-        if self.transform is not None and len(self.transform) == 1: # 测试集
+        if self.transform is not None and len(self.transform) == 1: # 
             # img_base = self.transform[0](sample)
             img_weak = self.transform[0](sample)
             img_strong = 1
@@ -631,7 +631,7 @@ def Load_ImageNet(data_root, dataset, phase, batch_size, num_workers=4, shuffle=
     if phase == 'val_aug':
         return DataLoader(dataset=set_, batch_size=batch_size,
                               shuffle=shuffle, num_workers=num_workers,
-                              drop_last=True) # drop_last 是一个控制最后一个批次是否舍弃的参数
+                              drop_last=True) 
     else:
         return DataLoader(dataset=set_, batch_size=batch_size,
                               shuffle=shuffle, num_workers=num_workers,

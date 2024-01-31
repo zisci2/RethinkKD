@@ -7,7 +7,6 @@ from torchvision import transforms
 from torch.utils.data import DataLoader, Dataset, Sampler
 
 class Cutout(object):
-    # Cutout 是一种通过在图像中随机选择矩形区域并将其像素值设为零来实现的数据增强技术，目的是提高模型的鲁棒性。
     def __init__(self, n_holes, length):
         self.n_holes = n_holes
         self.length = length
@@ -201,21 +200,12 @@ class SubPolicy(object):
 
 
 data_transforms_CIFAR = {
-    # 'base': transforms.Compose([   # 总的来说这里和weak差不多，这个就不需要当基线了，weak当基线就可
-    #     # transforms.Resize(224),
-    #     #transforms.RandomCrop(32, padding=4), #padding=4
-    #     transforms.RandomResizedCrop(224, scale=(0.2, 1.0), interpolation=3),  # 3 is bicubic # 这里放缩的大小没统一，后续看看该用哪个吧
-    #     # transforms.RandomCrop(32, padding=4), # 新 自己加的 transforms.Resize(224)
-    #     transforms.RandomHorizontalFlip(),  # 这个或许也能去掉
-    #     transforms.ToTensor(),
-    #     transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
-    # ]),  
 
     'weak': transforms.Compose([
         # transforms.RandomCrop(32, padding=4),
         transforms.RandomResizedCrop(224, scale=(0.2, 1.0), interpolation=3), 
         transforms.RandomHorizontalFlip(),
-        transforms.RandomRotation(15), #比base多一个15度的旋转 --> 好了，它现在和base没区别了  --> 算了，多它一个也不算什么
+        transforms.RandomRotation(15), 
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.4914, 0.4822, 0.4465],
             std=[0.2023, 0.1994, 0.2010])
@@ -226,7 +216,7 @@ data_transforms_CIFAR = {
         transforms.RandomHorizontalFlip(),
         CIFAR10Policy(), # add AutoAug
         transforms.ToTensor(),
-        Cutout(n_holes=1, length=16), # 将n_holes个区域像素设为0，区域边长为length
+        Cutout(n_holes=1, length=16), 
         transforms.Normalize(mean=[0.4914, 0.4822, 0.4465],
             std=[0.2023, 0.1994, 0.2010])
     ]),
@@ -265,7 +255,7 @@ class LT_Dataset(Dataset):
             # img_base = self.transform[0](sample)
             img_weak = self.transform[0](sample)
             img_strong = self.transform[1](sample)
-        if self.transform is not None and len(self.transform) == 1: # 测试集
+        if self.transform is not None and len(self.transform) == 1: 
             # img_base = self.transform[0](sample)
             img_weak = self.transform[0](sample)
             img_strong = 1

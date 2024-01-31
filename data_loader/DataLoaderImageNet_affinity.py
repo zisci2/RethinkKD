@@ -566,7 +566,7 @@ class LT_Dataset(Dataset):
             img_weak = self.transform[0](sample)
             img_strong = self.transform[1](sample)
             img_base = self.transform[2](sample)
-        if self.transform is not None and len(self.transform) == 2: # 测试集
+        if self.transform is not None and len(self.transform) == 2: 
             # img_base = self.transform[0](sample)
             img_weak = self.transform[0](sample)
             # img_weak = 1
@@ -583,10 +583,8 @@ def Load_ImageNet(data_root, dataset, phase, batch_size, num_workers=4, shuffle=
     if dataset == 'ImageNet_LT':
         if phase == 'train':
             txt = 'data_txt/ImageNet_LT/ImageNet_LT_train.txt' 
-            # txt = '/mnt/d/data/ImageNet_LT/ImageNet_LT_train-small_data.txt' # 删改版，测试语法使用
         elif phase == 'val' or phase == 'val_aug': #or phase == 'test':
             txt = 'data_txt/ImageNet_LT/ImageNet_LT_val.txt'
-            # txt = '/mnt/d/data/ImageNet_LT/ImageNet_LT_val-small_data.txt' # 删改版，测试语法使用
 
         print('Loading data from %s' % (txt))
 
@@ -611,7 +609,7 @@ def Load_ImageNet(data_root, dataset, phase, batch_size, num_workers=4, shuffle=
                                                         data_transforms_ImageNet['test'],
                                                         data_transforms_ImageNet['base'],))
         
-        else: # newly added by Chenqi: for 'val_aug'
+        else: 
             set_ = LT_Dataset(data_root, txt, transform=[
                                                         data_transforms_ImageNet['weak'],
                                                         data_transforms_ImageNet['strong'],
@@ -633,7 +631,7 @@ def Load_ImageNet(data_root, dataset, phase, batch_size, num_workers=4, shuffle=
             data_root = "/mnt/e/dataset/ImageNet/data/ImageNet2012/train"
         elif phase == 'val' or phase == 'val_aug': #or phase == 'test':
             txt = 'data_txt/ImageNet_LT/ImageNet_LT_val.txt'
-            # txt = '/mnt/d/data/ImageNet_LT/ImageNet_LT_val-small_data.txt' # 删改版，测试语法使用      
+            # txt = '/mnt/d/data/ImageNet_LT/ImageNet_LT_val-small_data.txt' #  
 
         if phase == 'train':
             set_ = datasets.ImageFolder(data_root, transform=[
@@ -645,7 +643,7 @@ def Load_ImageNet(data_root, dataset, phase, batch_size, num_workers=4, shuffle=
             set_ = LT_Dataset(data_root, txt, transform=[
                                                         data_transforms_ImageNet['test'],
                                                         data_transforms_ImageNet['base'],])
-        else: # newly added by Chenqi: for 'val_aug'
+        else: 
             set_ = LT_Dataset(data_root, txt, transform=[
                                                         data_transforms_ImageNet['weak'],
                                                         data_transforms_ImageNet['strong'],
@@ -656,7 +654,7 @@ def Load_ImageNet(data_root, dataset, phase, batch_size, num_workers=4, shuffle=
     if phase == 'val_aug':
         return DataLoader(dataset=set_, batch_size=batch_size,
                               shuffle=shuffle, num_workers=num_workers,
-                              drop_last=True) # drop_last 是一个控制最后一个批次是否舍弃的参数
+                              drop_last=True) 
     else:
         return DataLoader(dataset=set_, batch_size=batch_size,
                               shuffle=shuffle, num_workers=num_workers,

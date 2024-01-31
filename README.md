@@ -10,7 +10,7 @@ pip install -r requirements.txt
 
   - Please download the [CIFAR100](https://www.cs.toronto.edu/~kriz/cifar.html). After compressing the CIFAR-100 files, please run the following command to process the CIFAR dataset.
   ```
-python dealWith_cifar_dataset.py
+python dataloader/dealWith_cifar_dataset.py
   ```
 
   - For ImageNet_LT preparation,  we follow the instruction from this [link](https://github.com/zhmiao/OpenLongTailRecognition-OLTR)
@@ -34,27 +34,27 @@ torch.save(model.state_dict(), 'resnet50.pt')
 ### (1) CIFAR100
 Train the teacher model.
 ```
-bash script_cifar100-T.sh
+bash script/cifar100-T.sh
 ```
 Train the student model.
 ```
 # 1T & 2T
-bash script_cifar100.sh
+bash script/cifar100.sh
 # 3T
-bash script_3T_cifar100.sh
+bash script/3T_cifar100.sh
 ```
 
 ### (2) CIFAR100_imb100
 Train the teacher model.
 ```
-bash script_cifar100-T.sh
+bash script/cifar100-T.sh
 ```
 Train the student model.
 ```
 # 1T & 2T
-bash script_cifar100_imb.sh
+bash script/cifar100_imb.sh
 # 3T
-bash script_3T_cifar100_imb.sh
+bash script/3T_cifar100_imb.sh
 ```
 
 ### (3) ImageNet
@@ -74,38 +74,38 @@ When using the balanced ImageNet dataset, make the following modifications to `D
 
 Train the teacher model.
 ```
-bash script_ImageNet-T.sh
+bash script/ImageNet-T.sh
 ```
 Train the student model.
 ```
-bash script_ImageNet.sh
+bash script/ImageNet.sh
 ```
 
 ### (4) ImageNet_LT
 Train the teacher model.
 ```
-bash script_ImageNet_LT-T.sh
+bash script/ImageNet_LT-T.sh
 ```
 Train the student model.
 ```
-bash script_ImageNet_LT.sh
+bash script/ImageNet_LT.sh
 ```
 
 ### Metric computation
 Calculate the Expected Calibration Error (ECE) value.
 ```
-bash script_ECE.sh
-bash script_ECE_3T.sh
+bash script/ECE.sh
+bash script/ECE_3T.sh
 ```
 
 Compute the Intersection over Union (IoU) value.
 ```
-bash IoU_TT.sh
-bash IoU_TT_3T.sh
+bash script/IoU_TT.sh
+bash script/IoU_TT_3T.sh
 ```
 
 Calculate the affinity value.
 ```
-python calculate_diversity_affinity.py
-python calculate_diversity_affinity_3T.py
+python Affinity/calculate_affinity.py
+python Affinity/calculate_affinity_3T.py
 ```

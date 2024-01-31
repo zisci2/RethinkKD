@@ -13,6 +13,8 @@ from tqdm import tqdm
 from sklearn.calibration import calibration_curve
 
 # from DataLoaderCIFAR_clean import Load_CIFAR100
+import sys
+sys.path.append("data_loader")
 from DataLoaderCIFAR import Load_CIFAR100
 from DataLoaderImageNet import Load_ImageNet
 
