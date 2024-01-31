@@ -18,7 +18,7 @@ from torchvision import transforms as T
 from DataLoaderCIFAR_diversity_affinity import Load_CIFAR100
 from DataLoaderImageNet_diversity_affinity import Load_ImageNet
 
-# newly added by Chenqi:
+
 class AverageMeter(object):
     """Computes and stores the average and current value"""
     def __init__(self, name, fmt=':f'):
@@ -66,7 +66,7 @@ def loss_kd(outputs, teacher_outputs, labels, temp, alpha):
     p = F.softmax(teacher_outputs/temp, dim=1)
     soft_loss = nn.KLDivLoss(reduction='batchmean')(q, p) * temp ** 2 
     hard_loss = nn.CrossEntropyLoss()(outputs, labels)
-    KD_loss = alpha * hard_loss + beta * soft_loss # 软硬损失的加权组合
+    KD_loss = alpha * hard_loss + beta * soft_loss 
 
     return KD_loss
 
@@ -116,7 +116,7 @@ def my_teacher(val_loader, teacher, device,
                 #     inputs, labels = imgs_base.to(device), labels.to(device) # 
                 # else:
                 #     inputs, labels = imgs_weak.to(device), labels.to(device) # 
-                if sum([use_weak, use_strong]) == 1: # 判断True是否为1个
+                if sum([use_weak, use_strong]) == 1: 
                     if use_weak:
                         inputs, labels = imgs_weak.to(device), labels.to(device)
                     elif use_strong:
@@ -127,7 +127,7 @@ def my_teacher(val_loader, teacher, device,
                     if use_base:
                         inputs, labels = imgs_base.to(device), labels.to(device)
                     elif not use_base:
-                        inputs, labels = imgs_weak.to(device), labels.to(device) # 就是test增强的情况
+                        inputs, labels = imgs_weak.to(device), labels.to(device)
                     else:
                         assert False
                 
@@ -190,7 +190,7 @@ def my_train(train_loader, model, teacher, device,
 
                 for teacher_num in range(len(teacher)):
                 #     teacher[teacher_num] = teacher[teacher_num].to(device)
-                #     if S_add_strong: # 和学生输入需要一致
+                #     if S_add_strong: 
                 #         teacher_outputs.append(teacher[teacher_num](imgs_strong)) 
                 #     elif S_add_weak:
                 #         teacher_outputs.append(teacher[teacher_num](imgs_weak)) 
@@ -286,7 +286,7 @@ def my_validate(val_loader, model, teacher, device,use_base):
     return top1.avg, losses.avg
 
 
-# newly added by Chenqi: this func is to only compute metrics with augmentation!
+# this func is to only compute metrics with augmentation!
 def my_validate_aug(val_aug_loader, model, teacher, device, use_strong=True):
     
     print('=> validating...')
@@ -364,7 +364,7 @@ data_path = {
         'ImageNet_LT':'/mnt/e/dataset/ImageNet/data/ImageNet2012',
         }
 
-# 改dataset名字！！
+
 students_path = {
     # cifar100_imb100
     # "T1s" : "run-teacher/CIFAR100_train_80_get-teacher-strong/checkpoint_bestAcc1.pth.tar",
@@ -468,7 +468,7 @@ if __name__ == "__main__":
     dataset = "CIFAR100"
     # dataset = "ImageNet_LT"
     # dataset = "ImageNet"
-    # arch = "resnet18" # 在后面设置
+    # arch = "resnet18" 
     mode = "distil"
     device = 'cuda:0'
     data_root = data_path[dataset]
@@ -501,15 +501,15 @@ if __name__ == "__main__":
         only_teacher = False
         one_teacher = False
         two_teacher = False
-        if 'only' in student_name: # only_Ss 直接训练的情况
+        if 'only' in student_name:
             arch = "resnet18"
             teacher_num = 0
             only_student = True
-        elif "Ss" not in student_name and "Sw" not in student_name: # 测试教师
+        elif "Ss" not in student_name and "Sw" not in student_name: 
             arch = "resnet50"
-            teacher_num = 1 # 只有一个教师模型，而且就是测试那个教师模型
+            teacher_num = 1 
             only_teacher = True
-        elif sum([T1_add_weak,T1_add_strong,T2_add_weak,T2_add_strong]) == 1: # 单教师 T1w_Sw
+        elif sum([T1_add_weak,T1_add_strong,T2_add_weak,T2_add_strong]) == 1:
             arch = "resnet18"
             teacher_num = 1
             one_teacher = True
@@ -546,13 +546,13 @@ if __name__ == "__main__":
         model_ft = models.__dict__[arch](weights=None)
         #model_ft = model
         # if arch == 'resnet50' and mode == 'train':
-        #     print("加载resnet50预训练模型了，注意了啊")
+        # 
         #     model_ft.load_state_dict(torch.load("./resnet50.pt"))
-        if class_num != 1000: # 非imagenet数据集
+        if class_num != 1000: #
             num_ftrs = model_ft.fc.in_features
             model_ft.fc = nn.Linear(num_ftrs, class_num)
         model_ft.load_state_dict(torch.load(students_path[student_name])['state_dict'])
-        print("模型参数加载成功")
+        print("The model parameters have been successfully loaded.")
         model_ft = model_ft.to(device)
 
         T_path = []
@@ -570,7 +570,7 @@ if __name__ == "__main__":
                 T_path.append(teacher_path['strong_2'])
 
             if len(T_path) != teacher_num:
-                print("加载的教师数量和预设的不符，请检查。")
+                print("The number of loaded teachers does not match the preset. Please check.")
                 print(len(T_path))
                 print(teacher_num)
                 assert(False)
@@ -582,7 +582,7 @@ if __name__ == "__main__":
                 print("class_num--->",class_num)
                 teacher_model.fc = nn.Linear(num_ftrs, class_num)
 
-                print("加载的教师模型是：",T_path[i])
+                print("The loaded teacher model is:",T_path[i])
                 teacher_model.load_state_dict(torch.load(T_path[i])['state_dict'])
                 # teacher_model.load_state_dict(torch.load("./resnet50.pt")) # 测试imagenet_LT数据的训练所加载的预训练教师模型
                 teacher.append(teacher_model.to(device))
@@ -590,13 +590,12 @@ if __name__ == "__main__":
             teacher = []
 
         # if 'CIFAR100' in dataset:
-        #     print("加载load_CIFAR100函数")
+        #     
         #     dataloaders = {x: Load_CIFAR100(data_root=data_root, dataset=dataset, phase=x,
         #                     batch_size=128, num_workers=4,
         #                     shuffle=True if x == 'train' else False)
         #     for x in ['train', 'val', 'val_aug']} 
         if only_teacher or only_student:
-            print("进入测试教师模型行列")
             # acc1_train_weak, loss_train_weak = my_teacher(val_loader=dataloaders['train'], teacher=model_ft, device=device, use_weak=True)
             # acc1_train_strong, loss_train_strong = my_teacher(val_loader=dataloaders['train'], teacher=model_ft, device=device, use_strong=True)
             # acc1_train_base, loss_train_base = my_teacher(val_loader=dataloaders['train'], teacher=model_ft, device=device, use_base=True)
@@ -618,7 +617,6 @@ if __name__ == "__main__":
             # diversity_s_b = loss_train_strong / loss_train_base
 
         elif two_teacher or one_teacher:
-            print("进入测试学生模型行列")
             # acc1_train_weak, loss_train_weak = my_train(dataloaders['train'], model_ft, teacher, device, temp, alpha, use_weak=True)
             # acc1_train_strong, loss_train_strong = my_train(dataloaders['train'], model_ft, teacher, device, temp, alpha, use_strong=True)
             # acc1_train_base, loss_train_base = my_train(dataloaders['train'], model_ft, teacher, device, temp, alpha, use_base=True)
@@ -646,7 +644,7 @@ if __name__ == "__main__":
                     # f"at epoch: {best_epoch}\n",
                     # f"The accuracy gap between train and val is: {train_val_acc_gap}\n",
                     f'Model:{student_name}\n',
-                    # newly added by zsw
+
                     # f'acc1_train_base: {acc1_train_base}',
                     # f'acc1_train_weak: {acc1_train_weak}\n',
                     # f'acc1_train_strong: {acc1_train_strong}\n',
