@@ -271,7 +271,7 @@ if __name__ == '__main__':
                         model_output_cam2 = conv_2(imgs_strong)
                         model_output_cam3 = conv_3(imgs_strong)
 
-            Threshold = 0.5
+            Threshold = 0.4
 
             model_cam1 = model_output_cam1.sum(dim=1)
             model_cam2 = model_output_cam2.sum(dim=1)

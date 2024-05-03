@@ -16,7 +16,7 @@ python dataloader/dealWith_cifar_dataset.py
   - For ImageNet_LT preparation,  we follow the instruction from this [link](https://github.com/zhmiao/OpenLongTailRecognition-OLTR)
 
   - Please download the [ImageNet_2012](http://image-net.org/index).
-  
+
 
 
 ### Pretrained models
@@ -47,7 +47,7 @@ bash script/3T_cifar100.sh
 ### (2) CIFAR100_imb100
 Train the teacher model.
 ```
-bash script/cifar100-T.sh
+bash script/cifar100_imb-T.sh
 ```
 Train the student model.
 ```
